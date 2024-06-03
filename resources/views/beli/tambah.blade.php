@@ -2,16 +2,20 @@
     <div class="col-lg-12">
     <form method="POST" id="tambah" action="{{url('beli/simpan')}}">
         <div class="form-group">
-            <label>Kode Barang</label>
-            <input class="form-control" type="text" name="kode_barang" id="kodeBarang"/>
+            <label>Nama Barang</label>
+            <input class="form-control autoDropdownBarang" name="id_barang" id="idBarang"/>
         </div>
         <div class="form-group">
-            <label>Jumlah Barang</label>
-            <input class="form-control" type="text" name="jumlah_beli" id="jumlahBeli"/>
+            <label>Tanggal Pembelian</label>
+            <input class="form-control" type="date" name="tanggal_beli" id="tanggalBeli"/>
+        </div>
+        <div class="form-group">
+            <label>Jumlah Pembelian</label>
+            <input class="form-control" type="number" name="jumlah_beli" id="jumlahBeli"/>
         </div>
         <div class="form-group">
             <label>Harga Barang</label>
-            <input class="form-control" type="text" name="harga" id="hargaBarang"/>
+            <input class="form-control" type="number" name="harga_beli_satuan" id="hargaBeliSatuan"/>
         </div>
     </div>
     @csrf

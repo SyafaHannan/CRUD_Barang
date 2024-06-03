@@ -6,7 +6,7 @@
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
-            <btn class="btn btn-success  btnBeliBarang" data-bs-title='Tambah Stok Barang' data-bs-target='#modalForm' data-bs-toggle="modal" attr-href="{{route('beli.tambah')}}"><i class='bi bi-plus-circle'></i> Tambah</btn>
+            <btn class="btn btn-success  btnBeliBarang" data-bs-title='Tambah Stok Barang' data-bs-target='#modalForm' data-bs-toggle="modal" attr-href="{{route('beli.tambah')}}"><i class='bi bi-plus-circle'></i> Tambah Stok Barang</btn>
         </div>
         <div class="card-body">
             <table class="table DataTable table-hovered table-bordered">
@@ -60,8 +60,7 @@
         processing: true,
         serverSide: true,
         ajax: "{!!route('beli.data')!!}",
-        columns: [
-            {
+        columns: [{
                 render: function(data, type, row) {
                     return row.barang.nama_barang;
                 }
@@ -152,9 +151,9 @@
                 editSimpanEvent.stopImmediatePropagation();
                 var dataEdit = {
                     'id_barang': $('#idBarang').val(),
-                    'kode_barang': $('#kodeBarang').val(),
-                    'nama_barang': $('#namaBarang').val(),
-                    'harga': $('#hargaBarang').val(),
+                    'tanggal_beli': $('#tanggalBeli').val(),
+                    'jumlah_beli': $('#jumlahBeli').val(),
+                    'harga_beli_satuan' : $('#hargaBeliSatuan').val(),
                     '_token': "{{csrf_token()}}"
                 };
                 axios.post('{{url("/barang/simpan")}}', dataEdit).then(response => {
@@ -181,7 +180,7 @@
         });
 
     });
-
+    //modal popup tambah barang
     $('.btnBeliBarang').on('click', function(a) {
         a.preventDefault();
         changeHTML('#modalForm', '.modal-title', 'Tambah data barang');
@@ -195,6 +194,27 @@
 
             axios.get(link).then(response => {
                 $('#modalForm .modal-body').html(response.data);
+                $(".autoDropdownBarang").select2({
+                    placeholder: 'Pilih Barang Yang Akan Dibeli',
+                    theme: 'bootstrap-5',
+                    cache: true,
+                    dropdownParent: $('#modalForm'),
+                    ajax : {
+                        url : "{!!route('barang.list')!!}",
+                        dataType : 'json',
+                        processResults : function(data){
+                            $.each(data,function(i,d){
+                                    //i = iterasi ke n
+                                    //d = data dari iterasi i
+                                    data[i]['text'] = d.nama_barang;
+                                    data[i]['id'] = d.id_barang;
+                            });
+                            return {
+                                results: data
+                            }
+                        }
+                    }
+                });
             });
 
             //event simpan barang ketika btn di klik
@@ -202,14 +222,15 @@
                 simpanEvent.preventDefault();
                 simpanEvent.stopImmediatePropagation();
                 let data = {
-                    'kode_barang': $('#kodeBarang').val(),
-                    'nama_barang': $('#namaBarang').val(),
-                    'harga': $('#hargaBarang').val(),
+                    'id_barang': $('#idBarang').val(),
+                    'tanggal_beli': $('#tanggalBeli').val(),
+                    'jumlah_beli': $('#jumlahBeli').val(),
+                    'harga_beli_satuan' : $('#hargaBeliSatuan').val(),
                     '_token': "{{csrf_token()}}"
 
                 };
 
-                if (data.nama_barang !== '' && data.kode_barang !== '' && data.harga !== '') {
+                if (data.nama_barang !== '' && data.jumlah_beli !== '' && data.harga_beli_satuan !== '') {
                     //Input data    
                     axios.post('{{url("/barang/simpan")}}', data).then(resp => {
                         if (resp.data.status == 'success') {
@@ -255,7 +276,7 @@
         closeEvent.stopImmediatePropagation();
 
         $('#modalForm').removeData();
-    })
+    });
 
     function changeHTML(element, find, text) {
         $(element).find(find).html();

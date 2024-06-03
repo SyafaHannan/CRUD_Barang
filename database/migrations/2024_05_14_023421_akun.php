@@ -15,7 +15,7 @@ return new class extends Migration
         //
         Schema::create($this->table, function (Blueprint $table) {
             $table->integer('id_akun', true, false)->nullable(false);
-            $table->string('username', 200)->nullable (false)->unique('IndexUsername');
+            $table->string('username', 200)->nullable(false)->unique('IndexUsername');
             $table->string('password')->nullable(false);
             $table->enum ('level', ['admin', 'barang', 'beli', 'jual']);
             $table->timestamps();

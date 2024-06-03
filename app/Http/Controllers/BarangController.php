@@ -151,4 +151,12 @@ class BarangController extends Controller
             return DataTables::of($data)->toJson();
         endif;
     }
+    public function listBarang(Request $request)
+    {
+        if($request->filled('term')):
+            $data = Barang::select(['nama_barang','id_barang'])
+                    ->where('nama_barang','LIKE','%'.$request->get('q').'%')->get();
+            return response()->json($data);
+        endif;
+    }
 }

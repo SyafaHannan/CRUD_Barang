@@ -19,6 +19,8 @@ class isAdmin
         if(Auth::check() && Auth::user()->level === 'admin'):
 
             return $next($request);
+        elseif(Auth::check() && Auth::user()->level === 'barang'):
+            return $next($request);
         else:
             return redirect()->to('login',302);
         endif;

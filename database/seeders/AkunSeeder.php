@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AkunSeeder extends Seeder
@@ -35,9 +36,12 @@ class AkunSeeder extends Seeder
 
             [
                 'username'=> 'admin',
-                'password'=> Hash::make(123456),
+                'password'=> 'Hash::make(123456)',
                 'level' => 'admin'
             ]
             ];
+            foreach($akuns as $akun ){
+                DB::table('akun')->insert($akun);
+            }
     }
 }
