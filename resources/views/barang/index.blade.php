@@ -143,7 +143,7 @@
                 axios.post('{{url("/barang/simpan")}}', dataEdit).then(response => {
                     if (response.data.status == 'success') {
                         Swal.fire({
-                            title: 'Berhasil di update abangkuhh',
+                            title: 'Berhasil Di Update',
                             text: response.data.pesan,
                             icon: 'success'
                         }).then(() => {
