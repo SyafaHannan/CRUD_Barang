@@ -71,9 +71,7 @@ class BarangController extends Controller
             }
         endif;
     }
-
-    public function update(Request $request)
-    {
+    public function edit(Request $request){
         /**
          * method ini hanya bisa diakses dengan http method get
          */
@@ -82,25 +80,20 @@ class BarangController extends Controller
         ];
         return view('barang.edit',$data);
     }
+    public function update(StoreBarangRequest $request)
+    {
+        $data =  $request->validated();
+        $perintah = Barang::where('id_barang',$request->id_barang)->update($data);
+        $pesan = [
+            'status' => 'success',
+            'pesan'  => 'Data Barang berhasil di perbarui'
+        ];
+        return($pesan);
+
+    }
     public function simpan(StoreBarangRequest $request)
     {
         $data =  $request->validated();
-        if($data):
-            if(isset($request->id_barang)):
-                //proses data
-                $perintah = Barang::where('id_barang',$request->id_barang)->update($data);
-                if($perintah):
-                    $pesan = [
-                        'status' => 'success',
-                        'pesan'  => 'Data Barang berhasil di perbarui'
-                    ];
-                else:
-                    $pesan = [
-                        'status' => 'error',
-                        'pesan'  => 'Data Barang gagal di perbarui'
-                    ];
-                endif;  
-            else:
                 //proses penambahan data baru
                 $dataBaru = Barang::create($data);
                 if($dataBaru):
@@ -114,14 +107,7 @@ class BarangController extends Controller
                         'pesan'  => 'Data Barang Baru gagal ditambahkan'
                     ];
                 endif;
-            endif;
-        else:
-            $pesan = [
-                'status' => 'error',
-                'pesan'  => 'Proses validasi gagal'
-            ];
-        endif;
-        return response()->json($pesan);
+            return response()->json($pesan);
 
     }
 

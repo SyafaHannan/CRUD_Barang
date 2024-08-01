@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create($this->table,function(Blueprint $table){
             $table->integer('id_barang',true,false)->nullable(false);
             $table->string('nama_barang',200)->nullable(false);
-            $table->string('kode_barang',200)->nullable(false);
+            $table->string('kode_barang',8)->nullable(false);
             $table->decimal('harga',10,2,false)->nullable(false);
         });
     }

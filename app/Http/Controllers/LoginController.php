@@ -27,7 +27,7 @@ class LoginController extends Controller
             ]
         );
 
-        if (Auth::attempt($postData)) {
+        if(Auth::attempt($postData)) {
             //jika login berhasil generate session dan redirect ke  halaman dashboard
             $request->session()->regenerate();
             if (Auth::user()->level == 'admin') {

@@ -12,7 +12,7 @@
 
 <body>
     <div class="header">
-        <a href="#default" class="logo">MiniMark</a>
+        <a href="#default" class="logo">Mini Market</a>
         <div class="header-right">
         </div>
     </div>
@@ -26,13 +26,13 @@
 
                         <!-- Email input -->
                         <div data-mdb-input-init class="form-outline mb-4">
-                            <input type="email" id="userName" class="form-control form-control-lg" placeholder="Enter a valid username" />
+                            <input type="email" id="userName" class="form-control form-control-lg" placeholder="Enter a valid username" required />
                             <label class="form-label" for="form3Example3">Username</label>
                         </div>
 
                         <!-- Password input -->
                         <div data-mdb-input-init class="form-outline mb-3">
-                            <input type="password" id="password" class="form-control form-control-lg" placeholder="Enter password" />
+                            <input type="password" id="password" class="form-control form-control-lg" placeholder="Enter password" required/>
                             <label class="form-label" for="form3Example4">Password</label>
                         </div>
 

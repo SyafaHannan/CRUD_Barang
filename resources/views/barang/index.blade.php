@@ -140,7 +140,7 @@
                     'harga': $('#hargaBarang').val(),
                     '_token': "{{csrf_token()}}"
                 };
-                axios.post('{{url("/barang/simpan")}}', dataEdit).then(response => {
+                axios.post('{{url("/barang/update/")}}', dataEdit).then(response => {
                     if (response.data.status == 'success') {
                         Swal.fire({
                             title: 'Berhasil Di Update',
@@ -157,6 +157,11 @@
                             title: 'Aaduhhh gagal...',
                             text: response.data.pesan,
                             icon: 'error'
+                        }).then(() => {
+                            //close modal
+                            modal.hide();
+                            //reload table otomatis
+                            table.ajax.reload();
                         });
                     }
                 });
